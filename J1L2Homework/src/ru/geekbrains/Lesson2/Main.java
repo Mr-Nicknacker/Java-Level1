@@ -1,5 +1,7 @@
 package ru.geekbrains.Lesson2;
 
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -57,8 +59,9 @@ public class Main {
     }
 
     public static void initializeNewArray(int[] array){
+        Random random = new Random();
         for (int i=0;i<array.length;i++){
-            array[i]=(int)(Math.random()*2);
+            array[i]=random.nextInt(2);
         }
     }
     public static void printArray(int[] arr){
