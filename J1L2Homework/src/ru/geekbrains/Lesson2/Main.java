@@ -8,58 +8,58 @@ public class Main {
         int[] array3 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
         int[][] largeArray = new int[5][5];
         int[] arrToShift = {1,2,3,4,5,6};
-        //int[] arrToSum = {2,2,2,1,2,2};
-        int[] arrToSum = {1,1,1};
+        int[] arrToSum = {2,2,2,1,2,2,10,1};
+        //int[] arrToSum = {1,1,1,2,1};
 
 //ЗАДАНИЕ 1
         System.out.println("Задание 1");
         initializeNewArray(array);
         System.out.print("Initial array: ");
         printArray(array);
-        array=swapDigits(array);
+        swapDigits(array);
         System.out.print("\nModified array: ");
         printArray(array);
 //ЗАДАНИЕ 2
         System.out.println("\n\nЗадание 2");
-        array2=fillArrayWithNumbers(array2);
+        fillArrayWithNumbers(array2);
         System.out.print("Initialized array2: ");
         printArray(array2);
 //ЗАДАНИЕ 3
         System.out.println("\n\nЗадание 3");
         System.out.print("Initial array3: ");
         printArray(array3);
-        array3=multiplyNumbersInArray(array3);
+        multiplyNumbersInArray(array3);
         System.out.print("\nChanged array3: ");
         printArray(array3);
-//ЗАДАНИЕ 4
+//ЗАДАНИЕ 4 Создать квадратный двумерный целочисленный массив и с помощью цикла(-ов) заполнить его диагональные элементы единицами;
         System.out.println("\n\nЗадание 4");
-        largeArray= initialize2DSquareArrayDiagonals(largeArray);
+        initialize2DSquareArrayDiagonals(largeArray);
         System.out.println("Initialized 2D array:");
         print2DSquareArray(largeArray);
-//ЗАДАНИЕ 5
+//ЗАДАНИЕ 5 Задать одномерный массив и найти в нем минимальный и максимальный элементы
         System.out.println("\nЗадание 5");
         System.out.println("Array is: ");
         printArray(array3);
         findMinMaxInArray(array3);
-//ЗАДАНИЕ 6
+//ЗАДАНИЕ 6 Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен вернуть true, если в массиве есть место, в котором сумма левой и правой части массива равны.
         System.out.println("\nЗадание 6");
         System.out.println("Array is: ");
         printArray(arrToSum);
         System.out.println("\nВ массиве есть место, в котором сумма левой и правой части массива равны? "+checkBalance(arrToSum));
-//ЗАДАНИЕ 7
+//ЗАДАНИЕ 7 Написать метод, которому на вход подается одномерный массив и число n (может быть положительным, или отрицательным), метод должен сместить все элементы массива на n позиций.
         System.out.println("\nЗадание 7");
         System.out.println("Array is: ");
         printArray(arrToShift);
         System.out.println("\nArray after shifting: ");
-        printArray(shiftArrayValues(arrToShift,2));
+        shiftArrayValues(arrToShift,-2);
+        printArray(arrToShift);
 
     }
 
-    public static int[] initializeNewArray(int[] array){
+    public static void initializeNewArray(int[] array){
         for (int i=0;i<array.length;i++){
             array[i]=(int)(Math.random()*2);
         }
-        return array;
     }
     public static void printArray(int[] arr){
         for (int num:arr) {
@@ -67,45 +67,34 @@ public class Main {
         }
     }
 
-    public static int[] swapDigits(int[] array){
+    /*XOR
+    * F-F=F
+    * T-F=T
+    * F-T=T
+    * T-T=F
+    * */
+    public static void swapDigits(int[] array){ //XOR
         for (int i=0;i<array.length;i++) {
-            if (array[i] == 1) {
-                array[i] = 0;
-            }else{
-                array[i]=1;
+                array[i]=array[i]^1;
             }
-        }
-        return array;
     }
-    public static int[] fillArrayWithNumbers(int[] arr){
-        int num=0;
+    public static void fillArrayWithNumbers(int[] arr){
         for (int i=0;i<arr.length;i++){
-            arr[i]=num;
-            num+=3;
+            arr[i]=i*3;
         }
-        return arr;
     }
-    public static int[] multiplyNumbersInArray(int[] arr){
+    public static void multiplyNumbersInArray(int[] arr){
         for (int i = 0; i <arr.length ; i++) {
             if (arr[i]<6){
                 arr[i]*=2;
             }
         }
-        return arr;
     }
-    public static int[][] initialize2DSquareArrayDiagonals(int [][] arr){
-        int row=0;
+    public static void initialize2DSquareArrayDiagonals(int [][] arr){
         for (int i = 0; i <arr.length ; i++) {
                 arr[i][i]=1;
+                arr[i][arr.length-1-i]=1;
             }
-
-            for (int j = arr.length-1; j>=0; j--) {
-                arr[row][j]=1;
-                row++;
-            }
-
-
-        return arr;
         }
     public static void print2DSquareArray(int[][] arr){
         for (int i = 0; i < arr.length; i++) {
@@ -130,51 +119,44 @@ public class Main {
         System.out.println("\nMax is: "+max+"\nMin is: "+min);
 
     }
-    public static int countSumInArray(int[] arr, int start, int finish){
-        int sum=0;
-        for (int i = start; i < finish; i++) {
-            sum +=arr[i];
+    public static boolean checkBalance(int[] arr){ //Метод решения: сообщающиеся сосуды: всё сливаем вправо, затем переливаем в левый и сравниваем.
+        int sumLeft=0;
+        int sumRight=0;
+        for (int number:arr) { //Сливаем всю "воду" в правый сосуд
+            sumRight+=number;
         }
-        return sum;
-    }
-    public static boolean checkBalance(int[] arr){
-        int sumLeft=0, sumRight=0;
-
-        for (int k = 1; k < arr.length-1; k++) { //Это можно сделать с помощью while с переменной-счётчиком.
-            sumLeft=countSumInArray(arr,0,k);
-            sumRight=countSumInArray(arr, k+1, arr.length);
+        for (int number:arr) { //Постепенно переливаем в левый сосуд и сравниваем
+            sumLeft+=number;
+            sumRight-=number;
             if (sumLeft==sumRight){
                 return true;
             }
-            sumLeft=0;
-            sumRight=0;
         }
         return false;
     }
-    public static int[] shiftArrayValues(int[] arr, int n){
+    public static void shiftArrayValues(int[] arr, int n){
         int count = Math.abs(n);
-        int num;
+        int firstnumber;
+        int lastnumber;
         if (n<0){
             while (count>0){
+                firstnumber=arr[0];
                 for (int i = 0; i <arr.length-1; i++) {
-                        num=arr[i+1];
-                        arr[i+1]=arr[i];
-                        arr[i]=num;
+                        arr[i]=arr[i+1];
                 }
+                arr[arr.length-1]=firstnumber;
                 count--;
             }
-
         }
         if (n>0) {
             while (count > 0) {
+                lastnumber = arr[arr.length-1];
                 for (int j = arr.length - 1; j > 0; j--) {
-                    num = arr[j];
-                    arr[j] = arr[j - 1];
-                    arr[j - 1] = num;
+                    arr[j]=arr[j-1];
                 }
+                arr[0]=lastnumber;
                 count--;
             }
         }
-        return arr;
     }
 }
