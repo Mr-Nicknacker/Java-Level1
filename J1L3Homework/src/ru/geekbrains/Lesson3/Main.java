@@ -10,10 +10,10 @@ public class Main {
     public static Random random = new Random();
 
     public static void main(String[] args) {
-    // ЗАДАНИЕ 1
+//     ЗАДАНИЕ 1
 	/* Написать программу, которая загадывает случайное число от 0 до 9, и пользователю дается 3 попытки угадать это число. При каждой попытке компьютер должен сообщить больше ли указанное пользователем число чем загаданное, или меньше.
        После победы или проигрыша выводится запрос – «Повторить игру еще раз? 1 – да / 0 – нет»(1 – повторить, 0 – нет).*/
-   // guessANumber();
+    guessANumber();
 
     //ЗАДАНИЕ 2
    /* При запуске программы компьютер загадывает слово, запрашивает ответ у пользователя,
@@ -23,7 +23,7 @@ public class Main {
     ap############# (15 символов, чтобы пользователь не мог узнать длину слова)*/
     String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
     guessAWord(words);
-
+    scanner.close();
     }
     public static void playRounds(int rounds, int numberToGuess){ //Отыгрывает несколько раундов
 
@@ -53,7 +53,7 @@ public class Main {
             System.out.printf("Хотите сыграть ещё раз? %d - Да, %d - Нет\n", 1, 0);
             tryAgain=scanner.nextInt();
         } while (tryAgain==1);
-        scanner.close();
+      //  scanner.close();
     }
     public static int minWordLength(String word1, String word2){
         if (word1.length()<word2.length()){
@@ -68,8 +68,8 @@ public class Main {
         int randomWord=random.nextInt(str.length);
         String wordToGuess=str[randomWord];
 
-        System.out.println(Arrays.toString(str));
-        System.out.println(wordToGuess);
+//        System.out.println(Arrays.toString(str));
+//        System.out.println(wordToGuess);
         System.out.println("Угадайте слово.");
         String word = scanner.nextLine();
 
@@ -96,5 +96,6 @@ public class Main {
             word = scanner.nextLine();
         }
         System.out.println("Верно!!!");
+      //  scanner.close();
     }
 }
