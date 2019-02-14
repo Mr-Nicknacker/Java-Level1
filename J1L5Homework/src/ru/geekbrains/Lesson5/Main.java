@@ -9,7 +9,6 @@ public class Main {
 	persArray[2] = new Person("Jane Doe", "deputy CEO", "JaD@mailbox.com", "89151231212", 250000, 43);
 	persArray[3] = new Person("Atemova Albina", "Secretary", "aalbina@mailbox.com", "8151234567", 65000, 24);
 	persArray[4] = new Person("Timurov Timur", "PR Director", "ttimur@mailbox.com", "89151234567", 120000, 35);
-
 		for (Person employee:persArray) {
 			employee.printPersonInfoOlderThan(40);
 			}
